@@ -1,0 +1,2 @@
+// script that adds a given new attribute to a doc called school
+db.school.update({name: "Holberton school"}, {$set: {address: "972 Mission street"}}, {multi:true});
