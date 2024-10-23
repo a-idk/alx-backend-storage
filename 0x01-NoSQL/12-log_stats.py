@@ -2,7 +2,7 @@
 """
 Title: Log stats
 Description: script that provides some stats about Nginx logs
-	stored in MongoDB
+stored in MongoDB
 """
 
 from pymongo import MongoClient
