@@ -31,7 +31,8 @@ def count_url_access(method):
         html = method(url)
 
         # storing process
-        store.incr(c_key)
+        if store.incr(c_key):
+            print("OK")
         store.set(key, html)
         store.expire(key, 10)
 
