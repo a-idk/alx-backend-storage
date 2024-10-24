@@ -15,6 +15,29 @@ import redis
 
 UnionOfTypes = Union[str, bytes, int, float]
 
+def replay(method: Callable):
+    """ Method tha Replay: Callable """
+
+    key = method.__qualname__
+    inp = "".join([key, ":inputs"])
+    outp = "".join([key, ":outputs"])
+
+    count = method.__self__.get(key)
+
+    # setting the lrange
+    inp_list = method.__self__._redis.lrange(inp, 0, -1)
+    outp_list = method.__self__._redis.lrange(outp, 0, -1)
+
+    queue = list(zip(inp_list, outp_list))
+
+    # display
+    print(f"{key} was called {decode_utf8(count)} times:")
+
+    for d_key, d_value, in queue:
+        d_key = decode_utf8(d_key)
+        d_value = decode_utf8(d_value)
+        print(f"{key}(*{d_key}) -> {d_value}")
+
 
 def count_calls(method: Callable) -> Callable:
     """ counting the cache class call frequency """
