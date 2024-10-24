@@ -15,6 +15,7 @@ import redis
 
 UnionOfTypes = Union[str, bytes, int, float]
 
+
 def replay(method: Callable):
     """ Method tha Replay: Callable """
 
